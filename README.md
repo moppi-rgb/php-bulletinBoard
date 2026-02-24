@@ -10,6 +10,8 @@
 - MySQL / MariaDB
 - Webサーバー（Laragon / Apache / Nginx など）
 
+依存パッケージ管理は `pnpm` を使用します。
+
 ## 環境変数（`.env`）
 
 ```env

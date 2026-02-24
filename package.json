@@ -3,9 +3,19 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "browser-sync start --config bs-config.js"
+    "dev": "browser-sync start --config bs-config.js",
+    "dev:bbs-test": "cross-env BROWSERSYNC_PROXY=http://bbs.test browser-sync start --config bs-config.js"
   },
   "devDependencies": {
-    "browser-sync": "^3.0.3"
+    "browser-sync": "^3.0.3",
+    "cross-env": "^7.0.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "minimatch": "^10.2.1"
+    }
+  },
+  "overrides": {
+    "minimatch": "^10.2.1"
   }
 }

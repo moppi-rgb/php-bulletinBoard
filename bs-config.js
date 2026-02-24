@@ -1,4 +1,4 @@
-const proxyUrl = process.env.BROWSERSYNC_PROXY || 'php-bulletinboard.test';
+const proxyUrl = process.env.BROWSERSYNC_PROXY || 'http://localhost';
 
 module.exports = {
   proxy: proxyUrl,
