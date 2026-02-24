@@ -14,7 +14,7 @@
 
 ```env
 DB_HOST=127.0.0.1
-DB_NAME=php-bulletinboard
+DB_NAME=bbs
 DB_USER=root
 DB_PASSWORD=your_password_here
 DB_CHARSET=utf8mb4
