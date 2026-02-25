@@ -2,7 +2,7 @@
 
 Docker で動かす学習用のシンプルな PHP 掲示板です。
 
-## 使い方（Docker 一本化版）
+## 使い方
 
 `docker-compose.yml` は親ディレクトリ（`PHP/`）にあります。
 
