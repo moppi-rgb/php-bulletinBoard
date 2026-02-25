@@ -1,23 +1,47 @@
 # PHP簡易掲示板
 
-学習用に作成したシンプルなPHP掲示板です。
-投稿データはMySQLの`bbs`テーブルに保存されます。
-データベース接続については学習が浅いため、.env方式でアクセスするためのコードをGithub Copilotに出力してもらっています。
+Docker で動かす学習用のシンプルな PHP 掲示板です。
 
-## 動作環境
+## 使い方（Docker 一本化版）
 
-- PHP 8.0以上
-- MySQL / MariaDB
-- Webサーバー（Laragon / Apache / Nginx など）
+`docker-compose.yml` は親ディレクトリ（`PHP/`）にあります。
 
-依存パッケージ管理は `pnpm` を使用します。
+### 1 起動
 
-## 環境変数（`.env`）
+```bash
+cd ../
+docker compose up -d --build
+```
+
+### 2 アクセス先
+
+- 掲示板: http://localhost:8080
+- phpMyAdmin: http://localhost:8081
+
+### 3 停止
+
+```bash
+docker compose down
+```
+
+### 4 DBを初期化したいとき（全データ削除）
+
+```bash
+docker compose down -v
+docker compose up -d --build
+```
+
+## `.env`（`bbs/.env`）
 
 ```env
-DB_HOST=127.0.0.1
+DB_HOST=db
 DB_NAME=bbs
-DB_USER=root
-DB_PASSWORD=your_password_here
+DB_USER=user
+DB_PASSWORD=password
 DB_CHARSET=utf8mb4
 ```
+
+## 注意
+
+- Docker コマンドは `PHP/` で実行します（`bbs/` では実行しない）。
+- `DB_HOST` は `127.0.0.1` ではなく `db` を使います（Compose サービス名）。
