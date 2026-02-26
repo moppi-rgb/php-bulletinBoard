@@ -63,6 +63,22 @@ function h($s)
 {
     return htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
 }
+// セッション開始
+session_start();
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(16));
+}
+$csrf_token = $_SESSION['csrf_token'];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $token = filter_input(INPUT_POST, 'csrf_token');
+    if (!is_string($token) || !hash_equals($_SESSION['csrf_token'], $token)) {
+        exit('不正なリクエスト');
+    }
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(16));
+    $csrf_token = $_SESSION['csrf_token'];
+}
+
 // レコードの削除
 if (isset($_POST['delete_id'])) {
     $delete_id = $_POST['delete_id'];
@@ -109,6 +125,7 @@ if (isset($_POST['message']) && isset($_POST['user_name'])) {
         <p>学習用に制作したものです。自由に<small>(公序良俗に反しない内容で)</small>書き込みしてください。
         </p>
         <form action="index.php" method="post">
+            <input type="hidden" name="csrf_token" value="<?= h($csrf_token) ?>">
             <label for="">ユーザー名:</label>
             <input type="text" name="user_name">
             <label for="">メッセージ:</label>
@@ -137,8 +154,9 @@ if (isset($_POST['message']) && isset($_POST['user_name'])) {
                     <td><?= h($row['post_date']) ?></td>
                     <td>
                         <form action="index.php" method="post">
-                            <input type="hidden" name="delete_id" value=<?= $row["id"] ?>>
-                            <button type="submit">削除</button>
+                            <input type="hidden" name="delete_id" value="<?= $row["id"] ?>">
+                            <input type="hidden" name="csrf_token" value="<?= $csrf_token; ?>">
+                            <button type=" submit">削除</button>
                         </form>
                     </td>
                 </tr>
